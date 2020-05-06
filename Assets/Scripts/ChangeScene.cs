@@ -14,4 +14,9 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene("rankingScene");
     }
+
+    public void inputScene()
+    {
+        SceneManager.LoadScene("InputScene");
+    }
 }
