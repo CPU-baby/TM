@@ -19,4 +19,6 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene("InputScene");
     }
+
+    
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class PressEnterkey : MonoBehaviour
+public class PressEnterkey2 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Update()
@@ -11,9 +11,11 @@ public class PressEnterkey : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             Debug.Log("Enter key was pressed.");
-            SceneManager.LoadScene("WayScene");
+            SceneManager.LoadScene("Story1");
         }
 
+        //if (Input.GetKeyUp(KeyCode.KeypadEnter))
+        //    Debug.Log("Enter key was released.");
     }
 
 
