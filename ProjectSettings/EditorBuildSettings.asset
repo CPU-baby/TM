@@ -4,5 +4,44 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/InputScene.unity
+    guid: a65ef24264435104d92fc21132d2a23d
+  - enabled: 1
+    path: Assets/Scenes/FalseScene.unity
+    guid: 94c422ca4f7ccfb4bac742b8e498ea5a
+  - enabled: 1
+    path: Assets/Scenes/OnestageScene.unity
+    guid: 6e4bfade8bdf1974bab26230a1e5bb70
+  - enabled: 1
+    path: Assets/Scenes/RankingScene.unity
+    guid: 574add20262cfa040bc1b181a43bf7e5
+  - enabled: 1
+    path: Assets/Scenes/recepitScene.unity
+    guid: 8e02b1e996cf7b940b645eb870919850
+  - enabled: 1
+    path: Assets/Scenes/StartScence.unity
+    guid: f2536559d1d6eeb47a68866bb40e0503
+  - enabled: 1
+    path: Assets/Scenes/Story1.unity
+    guid: 7082e9e352a0ad04a9710c8c09bdb981
+  - enabled: 1
+    path: Assets/Scenes/Story2.unity
+    guid: eb1289659d70c364f837958c90f9f286
+  - enabled: 1
+    path: Assets/Scenes/Story3.unity
+    guid: e3ed68995db548f47bc1ca9c186eb0e7
+  - enabled: 1
+    path: Assets/Scenes/SuccessScene.unity
+    guid: 13951f5e69b9d674bb61c5ea9b80b0e1
+  - enabled: 1
+    path: Assets/Scenes/ThreestageScene.unity
+    guid: 8231e06fb60a0e044991a6051be4ef1a
+  - enabled: 1
+    path: Assets/Scenes/TwostageScene.unity
+    guid: c35bb7c3f054d9a4da5f34ede30d17f2
+  - enabled: 1
+    path: Assets/Scenes/WayScene.unity
+    guid: 53bd600b7d8499d42aeb3da3d01a5ef3
   m_configObjects: {}
