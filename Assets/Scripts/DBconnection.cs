@@ -26,10 +26,28 @@ public class DBConnection : MonoBehaviour
         yield return null;
     }
 
-    public string GetDBFilePath()
+    public static string GetDBFilePath()
     {
-        string str = string.Empty;
-        str = "URI=file:" + Application.dataPath + "/ranking.db";
+        string str = "URI=file:" + Application.dataPath + "/ranking.db";
+
+        IDbConnection dbConn = new SqliteConnection(str);
+        dbConn.Open();
+
+        string sql = "CREATE TABLE IF NOT EXISTS TalRanking ( " +
+             "num INTEGER PRIMARY KEY AUTOINCREMENT, " +
+             "name  TEXT NOT NULL, " +
+             "belong TEXT, " +
+             "score INTEGER NOT NULL DEFAULT 0);";
+        IDbCommand dbCommand = dbConn.CreateCommand();
+        dbCommand.CommandText = sql;
+        IDataReader dataReader = dbCommand.ExecuteReader();
+
+        dataReader.Dispose();
+        dataReader = null;
+        dbCommand.Dispose();
+        dbCommand = null;
+        dbConn.Dispose();
+        dbConn = null;
         return str;
     }
 
@@ -37,10 +55,8 @@ public class DBConnection : MonoBehaviour
     void Start()
     {
         DBConnectionCheck();
-        //insertPlayer();
-        //readRanking();
+        insertPlayer();
         //updateScore("원예린");
-        //readRanking();
     }
     public void DBConnectionCheck()
     {
@@ -64,18 +80,34 @@ public class DBConnection : MonoBehaviour
         }
     }
 
+    //플레이어추가 (매개변수 값 : 이름, 소속)
     public void insertPlayer()
     {
-        string name = "원예린";
-        string belonging = "3412";
+        string name = "농농";
+        string belong = "글쎼염";
+        //이름은 TextField로 받아오는 걸로 하기
+
+        if (!checkPlayer(name))
+        {
+            return; //중복이름
+        }
 
         IDbConnection dbConn = new SqliteConnection(GetDBFilePath());
         dbConn.Open();
         
-        string sql = "insert into TalRanking (num, name, belong) values (0, '" + name + "', '" + belonging + "')";
+        string sql = "insert into TalRanking (num, name, belong) values (0, '" + name + "', '" + belong + "');";
         IDbCommand dbCommand = dbConn.CreateCommand();
         dbCommand.CommandText = sql;
         IDataReader dataReader = dbCommand.ExecuteReader();
+
+        sql = "select num from TalRanking where name = " + name + " and belong = " + belong;
+        dbCommand.CommandText = sql;
+        dataReader = dbCommand.ExecuteReader();
+
+        if(dataReader.Read())
+        {
+            Debug.Log(dataReader.GetInt32(0));
+        }
 
         dataReader.Dispose();
         dataReader = null;
@@ -85,10 +117,39 @@ public class DBConnection : MonoBehaviour
         dbConn = null;
     }
 
-
-    public void updateScore(string name)
+    //중복이면 false, 아니면 true
+    public bool checkPlayer(String name)
     {
-        int score = 3000;
+        bool check = false;
+
+        IDbConnection dbConn = new SqliteConnection(GetDBFilePath());
+        dbConn.Open();
+
+        string sql = "select count(*) from TalRanking where name = '" + name + "'";
+        IDbCommand dbCommand = dbConn.CreateCommand();
+        dbCommand.CommandText = sql;
+        IDataReader dataReader = dbCommand.ExecuteReader();
+
+        if (dataReader.Read())
+        {
+            if(dataReader.GetInt32(0) == 0)
+            {
+                check = true;
+            }
+        }
+
+        dataReader.Dispose();
+        dataReader = null;
+        dbCommand.Dispose();
+        dbCommand = null;
+        dbConn.Dispose();
+        dbConn = null;
+        return check;
+    }
+
+
+    public void updateScore(int num, int score)
+    {
 
         IDbConnection dbConn = new SqliteConnection(GetDBFilePath());
         dbConn.Open();
@@ -106,26 +167,5 @@ public class DBConnection : MonoBehaviour
         dbConn = null;
     }
 
-    public void readRanking()
-    {
-        IDbConnection dbConn = new SqliteConnection(GetDBFilePath());
-        dbConn.Open();
-
-        string sql = "Select * from TalRanking limit 10";
-        IDbCommand dbCommand = dbConn.CreateCommand();
-        dbCommand.CommandText = sql;
-        IDataReader dataReader = dbCommand.ExecuteReader();
-
-        while (dataReader.Read())
-        {
-            Debug.Log(dataReader.GetInt32(0) + "번째, " + dataReader.GetString(1) + "님의 소속은 " + dataReader.GetString(2) + ", 점수는 " + dataReader.GetInt32(3) + "입니다.");
-        }
-
-        dataReader.Dispose();
-        dataReader = null;
-        dbCommand.Dispose();
-        dbCommand = null;
-        dbConn.Dispose();
-        dbConn = null;
-    }
+    
 }
