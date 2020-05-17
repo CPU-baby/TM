@@ -20,5 +20,16 @@ public class ChangeScene : MonoBehaviour
         SceneManager.LoadScene("InputScene");
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (SceneManager.GetActiveScene().name == "FalseScene")
+            {
+                rankingscene();
+            }
+        }
+    }
+
     
 }
